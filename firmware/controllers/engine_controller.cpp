@@ -61,7 +61,13 @@
 #include "adc_subscription.h"
 #include "gc_generic.h"
 #include "tuner_detector_utils.h"
-
+static uint32_t lastSec = 0;
+static float secAccum = 0.0f;
+static float frontTireHours = 0.0f;
+static float rearTireHours  = 0.0f;
+static float cylinderHours  = 0.0f;
+static float pistonHours    = 0.0f;
+static float engineHours    = 0.0f;
 
 #if EFI_TUNER_STUDIO
 #include "tunerstudio.h"
@@ -179,6 +185,48 @@ static void resetAccel() {
 }
 
 static void doPeriodicSlowCallback() {
+
+//-------------------------------------------
+//---------------EngineHour Counter----------
+//-------------------------------------------
+
+
+
+uint32_t nowSec = getTimeNowS();
+if (lastSec == 0) {
+    lastSec = nowSec;  // first run init
+} else {
+    uint32_t delta = nowSec - lastSec; // handles wrap naturally for uint32_t
+    lastSec = nowSec;
+
+    // Only count when engine is actually running*/
+    if (true) {
+        // Optional extra condition:
+        // if (engine->rpmCalculator.getRpm() > 500) { ... }
+        secAccum += (float)delta;
+
+        while (secAccum >= 36.0f) {
+            frontTireHours += 0.01f;
+            rearTireHours  += 0.01f;
+            cylinderHours  += 0.01f;
+            pistonHours    += 0.01f;
+            engineHours    += 0.01f;
+            secAccum -= 36.0f;
+        }
+    }
+}
+
+//engineHours += 0.01f;
+// Push values to TunerStudio every slow tick
+if (auto* oc = getTunerStudioOutputChannels()) {
+
+    oc->engine_hours_front_tire = frontTireHours;
+    oc->engine_hours_back_tire  = rearTireHours;
+    oc->engine_hours_cylinder   = cylinderHours;
+    oc->engine_hours_piston     = pistonHours;
+    oc->engine_hours_engine     = engineHours;
+}
+
 #if EFI_SHAFT_POSITION_INPUT
 	efiAssertVoid(ObdCode::CUSTOM_ERR_6661, getCurrentRemainingStack() > 64, "lowStckOnEv");
 
@@ -204,6 +252,8 @@ static void doPeriodicSlowCallback() {
 #endif // EFI_TCU
 
 	tryResetWatchdog();
+	
+
 }
 
 void initPeriodicEvents() {
