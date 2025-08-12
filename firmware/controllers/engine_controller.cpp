@@ -61,13 +61,21 @@
 #include "adc_subscription.h"
 #include "gc_generic.h"
 #include "tuner_detector_utils.h"
+#include "engine_configuration.h"
 static uint32_t lastSec = 0;
 static float secAccum = 0.0f;
-static float frontTireHours = 0.0f;
-static float rearTireHours  = 0.0f;
-static float cylinderHours  = 0.0f;
-static float pistonHours    = 0.0f;
-static float engineHours    = 0.0f;
+
+#define frontTireHours persistentState.frontTireHours
+#define rearTireHours  persistentState.rearTireHours
+#define cylinderHours  persistentState.cylinderHours
+#define pistonHours    persistentState.pistonHours
+#define engineHours    persistentState.engineHours
+
+#define resetFrontTireHours persistentState.resetFrontTireHours
+#define resetRearTireHours  persistentState.resetRearTireHours
+#define resetCylinderHours  persistentState.resetCylinderHours
+#define resetPistonHours    persistentState.resetPistonHours
+#define resetEngineHours    persistentState.resetEngineHours
 
 #if EFI_TUNER_STUDIO
 #include "tunerstudio.h"
@@ -184,48 +192,16 @@ static void resetAccel() {
 #endif // EFI_ENGINE_CONTROL
 }
 
+static void handleTimerReset(float& timer, bool& flag) {
+        if (flag) {
+                timer = 0.0f;
+                flag = false;
+                setNeedToWriteConfiguration();
+        }
+}
+
 static void doPeriodicSlowCallback() {
 
-//-------------------------------------------
-//---------------EngineHour Counter----------
-//-------------------------------------------
-
-
-
-uint32_t nowSec = getTimeNowS();
-if (lastSec == 0) {
-    lastSec = nowSec;  // first run init
-} else {
-    uint32_t delta = nowSec - lastSec; // handles wrap naturally for uint32_t
-    lastSec = nowSec;
-
-    // Only count when engine is actually running*/
-    if (true) {
-        // Optional extra condition:
-        // if (engine->rpmCalculator.getRpm() > 500) { ... }
-        secAccum += (float)delta;
-
-        while (secAccum >= 36.0f) {
-            frontTireHours += 0.01f;
-            rearTireHours  += 0.01f;
-            cylinderHours  += 0.01f;
-            pistonHours    += 0.01f;
-            engineHours    += 0.01f;
-            secAccum -= 36.0f;
-        }
-    }
-}
-
-//engineHours += 0.01f;
-// Push values to TunerStudio every slow tick
-if (auto* oc = getTunerStudioOutputChannels()) {
-
-    oc->engine_hours_front_tire = frontTireHours;
-    oc->engine_hours_back_tire  = rearTireHours;
-    oc->engine_hours_cylinder   = cylinderHours;
-    oc->engine_hours_piston     = pistonHours;
-    oc->engine_hours_engine     = engineHours;
-}
 
 #if EFI_SHAFT_POSITION_INPUT
 	efiAssertVoid(ObdCode::CUSTOM_ERR_6661, getCurrentRemainingStack() > 64, "lowStckOnEv");
@@ -253,6 +229,54 @@ if (auto* oc = getTunerStudioOutputChannels()) {
 
 	tryResetWatchdog();
 	
+//-------------------------------------------
+//---------------EngineHour Counter----------
+//-------------------------------------------
+
+        handleTimerReset(frontTireHours, resetFrontTireHours);
+        handleTimerReset(rearTireHours, resetRearTireHours);
+        handleTimerReset(cylinderHours, resetCylinderHours);
+        handleTimerReset(pistonHours, resetPistonHours);
+        handleTimerReset(engineHours, resetEngineHours);
+
+        uint32_t nowSec = getTimeNowS();
+        if (lastSec == 0) {
+            lastSec = nowSec;  // first run init
+        } else {
+            uint32_t delta = nowSec - lastSec; // handles wrap naturally for uint32_t
+            lastSec = nowSec;
+
+            // Only count when engine is actually running*/
+            if (!engine->rpmCalculator.isStopped())  {
+                // Optional extra condition:
+                // if (engine->rpmCalculator.getRpm() > 500) { ... }
+                secAccum += (float)delta;
+
+                bool updated = false;
+                while (secAccum >= 36.0f) {
+                    frontTireHours += 0.01f;
+                    rearTireHours  += 0.01f;
+                    cylinderHours  += 0.01f;
+                    pistonHours    += 0.01f;
+                    engineHours    += 0.01f;
+                    secAccum -= 36.0f;
+                    updated = true;
+                }
+                if (updated) {
+                    setNeedToWriteConfiguration();
+                }
+            }
+        }
+
+        // Push values to TunerStudio every slow tick
+        if (auto* oc = getTunerStudioOutputChannels()) {
+
+            oc->hours_front_tire = frontTireHours;
+            oc->hours_back_tire  = rearTireHours;
+            oc->hours_cylinder   = cylinderHours;
+            oc->hours_piston     = pistonHours;
+            oc->hours_engine     = engineHours;
+        }
 
 }
 

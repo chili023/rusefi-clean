@@ -97,7 +97,11 @@
 ! needed to get a proper TunerStudio file
 
 struct_no_prefix persistent_config_s
-
+boolean resetFrontTireHours
+boolean resetRearTireHours
+boolean resetCylinderHours
+boolean resetPistonHours
+boolean resetEngineHours
 struct_no_prefix engine_configuration_s
 
 ! see 'blockingFactor' in tunerstudio.template.ini
