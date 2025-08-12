@@ -16,6 +16,12 @@ float engine_hours_cylinder;;"Cylinder Tire", 1, 0, 0, 0, 0
 float engine_hours_piston;;"Piston", 1, 0, 0, 0, 0
 float engine_hours_engine;;"Crank", 1, 0, 0, 0, 0
 
+uint8_t resetFrontTireHours;;"Crank Time", 1, 0, 0, 0, 0
+uint8_t resetRearTireHours;;"Crank Time", 1, 0, 0, 0, 0
+uint8_t resetCylinderHours;;"Crank Time", 1, 0, 0, 0, 0
+uint8_t resetPistonHours;;"Crank Time", 1, 0, 0, 0, 0
+uint8_t resetEngineHours;;"Crank Time", 1, 0, 0, 0, 0
+
 bit sd_present;SD: Present
 bit sd_logging_internal;SD: Logging
 bit triggerScopeReady

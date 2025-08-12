@@ -244,11 +244,11 @@ static void doPeriodicSlowCallback() {
         // Push values to TunerStudio every slow tick
         if (auto* oc = getTunerStudioOutputChannels()) {
 
-            oc->engine_hours_front_tire = frontTireHours;
-            oc->engine_hours_back_tire  = rearTireHours;
-            oc->engine_hours_cylinder   = cylinderHours;
-            oc->engine_hours_piston     = pistonHours;
-            oc->engine_hours_engine     = engineHours;
+            oc->hours_front_tire = frontTireHours;
+            oc->hours_back_tire  = rearTireHours;
+            oc->hours_cylinder   = cylinderHours;
+            oc->hours_piston     = pistonHours;
+            oc->hours_engine     = engineHours;
         }
 
 #if EFI_SHAFT_POSITION_INPUT
