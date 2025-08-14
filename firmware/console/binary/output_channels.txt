@@ -10,11 +10,11 @@
 struct_no_prefix output_channels_s
 
 
-float engine_hours_front_tire;;"Front Tire", 1, 0, 0, 0, 0
-float engine_hours_back_tire;;"Back Tire", 1, 0, 0, 0, 0
-float engine_hours_cylinder;;"Cylinder Tire", 1, 0, 0, 0, 0
-float engine_hours_piston;;"Piston", 1, 0, 0, 0, 0
-float engine_hours_engine;;"Crank", 1, 0, 0, 0, 0
+float hours_front_tire;;"Front Tire", 1, 0, 0, 0, 0
+float hours_back_tire;;"Back Tire", 1, 0, 0, 0, 0
+float hours_cylinder;;"Cylinder", 1, 0, 0, 0, 0
+float hours_piston;;"Piston", 1, 0, 0, 0, 0
+float hours_engine;;"Crank", 1, 0, 0, 0, 0
 
 bit sd_present;SD: Present
 bit sd_logging_internal;SD: Logging
