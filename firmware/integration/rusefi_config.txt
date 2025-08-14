@@ -1848,11 +1848,7 @@ end_struct
 	wbo_s[CAN_WBO_COUNT iterate] canWbo;
 
 ! historically 'unusedOftenChangesDuringFirmwareUpdate' was here - now that's just an anchor reminding where to insert new fields
-boolean resetFrontTireHours
-boolean resetRearTireHours
-boolean resetCylinderHours
-boolean resetPistonHours
-boolean resetEngineHours
+
 ! end of engine_configuration_s
 end_struct
 
@@ -2333,7 +2329,16 @@ gppwm_channel_e torqueReductionIgnitionRetardXaxis;Selects the X axis to use for
 float[TORQUE_TABLE_Y_SIZE x TORQUE_TABLE_X_SIZE] torqueReductionIgnitionRetardTable;How many degrees of timing advance will be reduced during the Torque Reduction Time;"deg", 1, 0, -180, 180, 2
 int16_t[TORQUE_TABLE_X_SIZE] torqueReductionIgnitionRetardXBins;;"", 1, 0, -30000, 30000, 0
 int8_t[TORQUE_TABLE_Y_SIZE] torqueReductionIgnitionRetardGearBins ;;"gear N°", 1, 0, 0, 20, 0
-
+boolean resetFrontTireHours
+boolean resetRearTireHours
+boolean resetCylinderHours
+boolean resetPistonHours
+boolean resetEngineHours
+float frontTireHours
+float rearTireHours
+float cylinderHours
+float pistonHours
+float engineHours
 split_lines@@BOARD_CONFIG_FROM_FILE@@
 
 end_struct

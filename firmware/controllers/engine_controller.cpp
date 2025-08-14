@@ -65,17 +65,17 @@
 static uint32_t lastSec = 0;
 static float secAccum = 0.0f;
 
-#define frontTireHours persistentState.frontTireHours
-#define rearTireHours  persistentState.rearTireHours
-#define cylinderHours  persistentState.cylinderHours
-#define pistonHours    persistentState.pistonHours
-#define engineHours    persistentState.engineHours
+float frontTireHours ;
+float rearTireHours ;
+float  cylinderHours  ;
+float  pistonHours    ;
+float  engineHours    ;
 
-#define resetFrontTireHours persistentState.resetFrontTireHours
-#define resetRearTireHours  persistentState.resetRearTireHours
-#define resetCylinderHours  persistentState.resetCylinderHours
-#define resetPistonHours    persistentState.resetPistonHours
-#define resetEngineHours    persistentState.resetEngineHours
+bool resetFrontTireHours ;
+bool resetRearTireHours  ;
+bool resetCylinderHours  ;
+bool resetPistonHours    ;
+bool resetEngineHours    ;
 
 #if EFI_TUNER_STUDIO
 #include "tunerstudio.h"
@@ -220,7 +220,8 @@ static void doPeriodicSlowCallback() {
             lastSec = nowSec;
 
             // Only count when engine is actually running*/
-            if (!engine->rpmCalculator.isStopped()) {
+            //if (!engine->rpmCalculator.isStopped()) {
+              if (true) {
                 // Optional extra condition:
                 // if (engine->rpmCalculator.getRpm() > 500) { ... }
                 secAccum += (float)delta;
