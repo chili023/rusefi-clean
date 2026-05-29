@@ -65,17 +65,7 @@
 static uint32_t lastSec = 0;
 static float secAccum = 0.0f;
 
-float frontTireHours ;
-float rearTireHours ;
-float  cylinderHours  ;
-float  pistonHours    ;
-float  engineHours    ;
 
-bool resetFrontTireHours ;
-bool resetRearTireHours  ;
-bool resetCylinderHours  ;
-bool resetPistonHours    ;
-bool resetEngineHours    ;
 
 #if EFI_TUNER_STUDIO
 #include "tunerstudio.h"
@@ -189,28 +179,32 @@ static void resetAccel() {
 	{
 		engine->injectionEvents.elements[i].getWallFuel().resetWF();
 	}
-#endif // EFI_ENGINE_CONTROL
+	   #endif // EFI_ENGINE_CONTROL
 }
 
-static void handleTimerReset(float& timer, bool& flag) {
-        if (flag) {
-                timer = 0.0f;
-                flag = false;
-                setNeedToWriteConfiguration();
-        }
-}
+static bool handleTimerReset(float& timer, bool flag) {
+       if (flag) {
+           timer = 0.0f;
+           flag = false;
+           setNeedToWriteConfiguration();
+       }
+       return flag;
+   }
+
+
 
 static void doPeriodicSlowCallback() {
 
 //-------------------------------------------
 //---------------EngineHour Counter----------
 //-------------------------------------------
+config->resetFrontTireHours = handleTimerReset(config->frontTireHours, config->resetFrontTireHours);
+config->resetRearTireHours = handleTimerReset(config->rearTireHours, config->resetRearTireHours);
+config->resetCylinderHours = handleTimerReset(config->cylinderHours, config->resetCylinderHours);
+config->resetPistonHours = handleTimerReset(config->pistonHours, config->resetPistonHours);
+config->resetEngineHours = handleTimerReset(config->engineHours, config->resetEngineHours);
 
-        handleTimerReset(frontTireHours, resetFrontTireHours);
-        handleTimerReset(rearTireHours, resetRearTireHours);
-        handleTimerReset(cylinderHours, resetCylinderHours);
-        handleTimerReset(pistonHours, resetPistonHours);
-        handleTimerReset(engineHours, resetEngineHours);
+     
 
         uint32_t nowSec = getTimeNowS();
         if (lastSec == 0) {
@@ -220,19 +214,19 @@ static void doPeriodicSlowCallback() {
             lastSec = nowSec;
 
             // Only count when engine is actually running*/
-            //if (!engine->rpmCalculator.isStopped()) {
-              if (true) {
+            if (!engine->rpmCalculator.isStopped()) {
+            //  if (true) {
                 // Optional extra condition:
                 // if (engine->rpmCalculator.getRpm() > 500) { ... }
                 secAccum += (float)delta;
 
                 bool updated = false;
                 while (secAccum >= 36.0f) {
-                    frontTireHours += 0.01f;
-                    rearTireHours  += 0.01f;
-                    cylinderHours  += 0.01f;
-                    pistonHours    += 0.01f;
-                    engineHours    += 0.01f;
+                    config->frontTireHours += 0.01f;
+                    config->rearTireHours  += 0.01f;
+                    config->cylinderHours  += 0.01f;
+                    config->pistonHours    += 0.01f;
+                    config->engineHours    += 0.01f;
                     secAccum -= 36.0f;
                     updated = true;
                 }
@@ -245,11 +239,11 @@ static void doPeriodicSlowCallback() {
         // Push values to TunerStudio every slow tick
         if (auto* oc = getTunerStudioOutputChannels()) {
 
-            oc->hours_front_tire = frontTireHours;
-            oc->hours_back_tire  = rearTireHours;
-            oc->hours_cylinder   = cylinderHours;
-            oc->hours_piston     = pistonHours;
-            oc->hours_engine     = engineHours;
+            oc->hours_front_tire = config->frontTireHours;
+            oc->hours_back_tire  = config->rearTireHours;
+            oc->hours_cylinder   = config->cylinderHours;
+            oc->hours_piston     = config->pistonHours;
+            oc->hours_engine     = config->engineHours;
         }
 
 #if EFI_SHAFT_POSITION_INPUT
