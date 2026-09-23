@@ -1,0 +1,72 @@
+name: uaefi-moto Firmware
+
+# Builds only the uaefi-moto board. The upstream 'Firmware at GHA' workflow is disabled in forks
+# (it has a nightly schedule and release publishing), this one is triggered by pushes to this branch only.
+
+on:
+  push:
+    branches:
+      - uaefi-moto
+  workflow_dispatch:
+
+jobs:
+  build-firmware:
+    runs-on: ubuntu-latest
+    env:
+      BOARD_META_PATH: config/boards/hellen/uaefi-moto/meta-info.env
+      WHITE_LABEL: rusefi
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Checkout Submodules
+      run: |
+        misc/git_scripts/common_submodule_init.sh
+
+    - uses: actions/setup-java@v4
+      with:
+        distribution: 'zulu'
+        java-version: '17'
+
+    - name: Install multilib, mingw, sshpass and mtools
+      run: |
+        sudo bash misc/actions/add-ubuntu-latest-apt-mirrors.sh
+        sudo bash misc/actions/ubuntu-install-tools.sh
+
+    - name: Acquire Arm GNU Toolchain (arm-none-eabi-gcc)
+      uses: carlosperate/arm-none-eabi-gcc-action@v1
+      with:
+        release: '14.2.Rel1'
+
+    - name: Generate configs
+      working-directory: ./firmware/
+      run: |
+        bash bin/compile.sh ${{env.BOARD_META_PATH}} docs-enums
+        bash bin/compile.sh ${{env.BOARD_META_PATH}} config
+
+    - name: Build Firmware
+      working-directory: ./firmware/
+      run: |
+        bash bin/compile.sh ${{env.BOARD_META_PATH}} build_both_bundles --output-sync=recurse
+
+    - name: Upload firmware bundle
+      uses: actions/upload-artifact@v4
+      with:
+        name: rusefi_bundle_uaefi-moto
+        path: ./artifacts/rusefi_bundle_*.zip
+
+    - name: Upload TunerStudio ini
+      uses: actions/upload-artifact@v4
+      with:
+        name: rusefi_uaefi-moto.ini
+        path: ./firmware/tunerstudio/generated/rusefi_uaefi-moto.ini
+
+    - name: Upload binaries
+      uses: actions/upload-artifact@v4
+      with:
+        name: rusefi_uaefi-moto_binaries
+        path: |
+          ./firmware/deliver/rusefi*.bin
+          ./firmware/deliver/rusefi*.dfu
+          ./firmware/build/rusefi*.hex
+          ./firmware/build/rusefi.map

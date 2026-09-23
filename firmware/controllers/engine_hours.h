@@ -13,7 +13,7 @@
 
 #include "engine_module.h"
 #include "engine_hours_storage.h"
-#include "timer.h"
+#include <rusefi/timer.h>
 
 enum class engine_hours_counter_e : uint8_t {
 	FrontTire = 0,
