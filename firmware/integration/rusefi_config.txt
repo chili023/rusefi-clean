@@ -1013,6 +1013,7 @@ custom script_setting_t 4 scalar, F32, @OFFSET@, 		"",	   1,	   0, 0, 18000,	  2
 bit canBroadcastUseChannelTwo,"second","first"
 	bit useRawOutputToDriveIdleStepper;If enabled we use four Push-Pull outputs to directly drive stepper idle air valve coils
 bit verboseCan2,"Print all","Do not print";Print incoming and outgoing second bus CAN messages in rusEFI console
+	bit alphaNUseBaro;In Alpha-N mode, compensate for barometric pressure. Requires a barometric pressure sensor (for example on-board MAP read as baro).
 
 
 	dc_io[ETB_COUNT iterate] etbIo
@@ -2329,16 +2330,7 @@ gppwm_channel_e torqueReductionIgnitionRetardXaxis;Selects the X axis to use for
 float[TORQUE_TABLE_Y_SIZE x TORQUE_TABLE_X_SIZE] torqueReductionIgnitionRetardTable;How many degrees of timing advance will be reduced during the Torque Reduction Time;"deg", 1, 0, -180, 180, 2
 int16_t[TORQUE_TABLE_X_SIZE] torqueReductionIgnitionRetardXBins;;"", 1, 0, -30000, 30000, 0
 int8_t[TORQUE_TABLE_Y_SIZE] torqueReductionIgnitionRetardGearBins ;;"gear N°", 1, 0, 0, 20, 0
-boolean resetFrontTireHours
-boolean resetRearTireHours
-boolean resetCylinderHours
-boolean resetPistonHours
-boolean resetEngineHours
-float frontTireHours
-float rearTireHours
-float cylinderHours
-float pistonHours
-float engineHours
+
 split_lines@@BOARD_CONFIG_FROM_FILE@@
 
 end_struct

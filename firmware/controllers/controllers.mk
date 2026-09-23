@@ -73,6 +73,7 @@ CONTROLLERS_SRC_CPP = \
 	$(CONTROLLERS_DIR)/hysteresis.cpp \
 	$(CONTROLLERS_DIR)/max_limit_with_hysteresis.cpp \
 	$(CONTROLLERS_DIR)/long_term_fuel_trim.cpp \
+	$(CONTROLLERS_DIR)/engine_hours.cpp \
 
 CONTROLLERS_INC=\
 	$(CONTROLLERS_DIR) \

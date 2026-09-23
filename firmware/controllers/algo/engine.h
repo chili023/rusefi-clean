@@ -59,6 +59,7 @@
 #include "vvt.h"
 #include "closed_loop_fuel.h"
 #include "long_term_fuel_trim.h"
+#include "engine_hours.h"
 #include "electronic_throttle_generated.h"
 #include "engine_cylinder.hpp"
 
@@ -187,6 +188,7 @@ public:
         LongTermFuelTrim,
 #endif
         ShortTermFuelTrim,
+        EngineHours,
 
 #include "modules_list_generated.h"
 

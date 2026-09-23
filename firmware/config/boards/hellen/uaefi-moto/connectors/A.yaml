@@ -1,0 +1,233 @@
+meta: config/boards/hellen_mm100_meta.h
+
+pins:
+  - pin: A1
+    type: 12v
+    color: red
+    function: +12V battery / ECU supply
+
+  - pin: A2
+    meta: MM100_IN_VBATT
+    class: analog_inputs
+    type: 12v
+    color: red
+    function: Ignition switch (same as +12V on this bike)
+    ts_name: ___ Voltage From Key
+
+  - pin: A3
+    type: gnd
+    color: black
+    function: Power Ground
+
+  - pin: A4
+    type: gnd
+    color: black
+    function: Power Ground
+
+  - pin: A5
+    type: gnd
+    color: black
+    function: Power Ground
+
+  - pin: A6
+    type: gnd
+    color: black
+    function: Power Ground
+
+  - pin: A7
+    meta: MM100_INJ1
+    class: outputs
+    type: ls
+    color: blue
+    function: Injector output 1
+    ts_name: ___ Injector 1
+
+  - pin: A8
+    meta: MM100_INJ2
+    class: outputs
+    type: ls
+    color: blue
+    function: Injector output 2
+    ts_name: ___ Injector 2
+
+  - pin: A9
+    meta: MM100_INJ3
+    class: outputs
+    type: ls
+    color: blue
+    function: Injector output 3
+    ts_name: ___ Injector 3
+
+  - pin: A10
+    meta: MM100_INJ4
+    class: outputs
+    type: ls
+    color: blue
+    function: Injector output 4
+    ts_name: ___ Injector 4
+
+  - pin: A11
+    meta: MM100_INJ5
+    class: outputs
+    type: ls
+    color: blue
+    function: Injector output 5
+    ts_name: ___ Injector 5
+
+  - pin: A12
+    meta: MM100_INJ6
+    class: outputs
+    type: ls
+    color: blue
+    function: Injector output 6
+    ts_name: ___ Injector 6
+
+  - pin: A13
+    meta: MM100_IGN1
+    class: outputs
+    type: ign
+    color: yellow
+    function: Coil 1 (logic level, for coils with integrated igniter)
+    ts_name: ___ Coil 1
+
+  - pin: A14
+    meta: MM100_IGN2
+    class: outputs
+    type: ign
+    color: yellow
+    function: Coil 2 (logic level, for coils with integrated igniter)
+    ts_name: ___ Coil 2
+
+  - pin: A15
+    meta: MM100_IGN3
+    class: outputs
+    type: ign
+    color: yellow
+    function: Coil 3 (logic level, for coils with integrated igniter)
+    ts_name: ___ Coil 3
+
+  - pin: A16
+    meta: MM100_IGN4
+    class: outputs
+    type: ign
+    color: yellow
+    function: Coil 4 (logic level, for coils with integrated igniter)
+    ts_name: ___ Coil 4
+
+  - pin: A17
+    meta: MM100_IGN5
+    class: outputs
+    type: ign
+    color: yellow
+    function: Coil 5 (logic level, for coils with integrated igniter)
+    ts_name: ___ Coil 5
+
+  - pin: A18
+    meta: MM100_IGN6
+    class: outputs
+    type: ign
+    color: yellow
+    function: Coil 6 (logic level, for coils with integrated igniter)
+    ts_name: ___ Coil 6
+
+  - pin: A19
+    meta: MM100_INJ7
+    class: outputs
+    type: ls
+    color: green
+    function: GPPWM1 low side output (has flyback)
+    ts_name: ___ GPPWM1 low side
+
+  - pin: A20
+    meta: MM100_INJ8
+    class: outputs
+    type: ls
+    color: green
+    function: GPPWM2 low side output (has flyback)
+    ts_name: ___ GPPWM2 low side
+
+  - pin: A21
+    meta: MM100_OUT_PWM1
+    class: outputs
+    type: ls
+    color: green
+    function: GPPWM3 low side output (has flyback)
+    ts_name: ___ GPPWM3 low side
+
+  - pin: A22
+    meta: MM100_OUT_PWM2
+    class: outputs
+    type: ls
+    color: green
+    function: GPPWM4 low side output (has flyback)
+    ts_name: ___ GPPWM4 low side
+
+  - pin: A23
+    meta: MM100_IGN7
+    class: outputs
+    type: ls
+    color: green
+    function: Weak low side output 1 (relay, no flyback)
+    ts_name: ___ Weak low side 1
+
+  - pin: A24
+    meta: MM100_IGN8
+    class: outputs
+    type: ls
+    color: green
+    function: Weak low side output 2 (relay, no flyback)
+    ts_name: ___ Weak low side 2
+
+  - pin: A25
+    type: 12v
+    color: red
+    function: +12V output for hall sensors (PTC fused)
+
+  - pin: A26
+    type: wbo
+    color: grey
+    function: WBO1 Heater Positive (LSU pin 4)
+
+  - pin: A27
+    type: wbo
+    color: white
+    function: WBO1 Heater Negative (LSU pin 3)
+
+  - pin: A28
+    type: wbo
+    color: grey
+    function: WBO2 Heater Positive (LSU pin 4)
+
+  - pin: A29
+    type: wbo
+    color: white
+    function: WBO2 Heater Negative (LSU pin 3)
+
+  - pin: A30
+    type: usb
+    function: USB D+
+
+  - pin: A31
+    type: usb
+    function: USB D-
+
+  - pin: A32
+    type: gnd
+    color: black
+    function: USB Ground
+
+  - pin: A33
+    type: can
+    color: yellow
+    function: CAN1 bus high
+
+  - pin: A34
+    type: can
+    color: green
+    function: CAN1 bus low
+
+info:
+  cid: a
+  title: Superseal 34 keying 1: power and outputs
+  name: uaefi-moto
+  directory: hellen/uaefi-moto

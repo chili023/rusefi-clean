@@ -61,10 +61,6 @@
 #include "adc_subscription.h"
 #include "gc_generic.h"
 #include "tuner_detector_utils.h"
-#include "engine_configuration.h"
-static uint32_t lastSec = 0;
-static float secAccum = 0.0f;
-
 
 
 #if EFI_TUNER_STUDIO
@@ -179,73 +175,10 @@ static void resetAccel() {
 	{
 		engine->injectionEvents.elements[i].getWallFuel().resetWF();
 	}
-	   #endif // EFI_ENGINE_CONTROL
+#endif // EFI_ENGINE_CONTROL
 }
 
-static bool handleTimerReset(float& timer, bool flag) {
-       if (flag) {
-           timer = 0.0f;
-           flag = false;
-           setNeedToWriteConfiguration();
-       }
-       return flag;
-   }
-
-
-
 static void doPeriodicSlowCallback() {
-
-//-------------------------------------------
-//---------------EngineHour Counter----------
-//-------------------------------------------
-config->resetFrontTireHours = handleTimerReset(config->frontTireHours, config->resetFrontTireHours);
-config->resetRearTireHours = handleTimerReset(config->rearTireHours, config->resetRearTireHours);
-config->resetCylinderHours = handleTimerReset(config->cylinderHours, config->resetCylinderHours);
-config->resetPistonHours = handleTimerReset(config->pistonHours, config->resetPistonHours);
-config->resetEngineHours = handleTimerReset(config->engineHours, config->resetEngineHours);
-
-     
-
-        uint32_t nowSec = getTimeNowS();
-        if (lastSec == 0) {
-            lastSec = nowSec;  // first run init
-        } else {
-            uint32_t delta = nowSec - lastSec; // handles wrap naturally for uint32_t
-            lastSec = nowSec;
-
-            // Only count when engine is actually running*/
-            if (!engine->rpmCalculator.isStopped()) {
-            //  if (true) {
-                // Optional extra condition:
-                // if (engine->rpmCalculator.getRpm() > 500) { ... }
-                secAccum += (float)delta;
-
-                bool updated = false;
-                while (secAccum >= 36.0f) {
-                    config->frontTireHours += 0.01f;
-                    config->rearTireHours  += 0.01f;
-                    config->cylinderHours  += 0.01f;
-                    config->pistonHours    += 0.01f;
-                    config->engineHours    += 0.01f;
-                    secAccum -= 36.0f;
-                    updated = true;
-                }
-                if (updated) {
-                    setNeedToWriteConfiguration();
-                }
-            }
-        }
-
-        // Push values to TunerStudio every slow tick
-        if (auto* oc = getTunerStudioOutputChannels()) {
-
-            oc->hours_front_tire = config->frontTireHours;
-            oc->hours_back_tire  = config->rearTireHours;
-            oc->hours_cylinder   = config->cylinderHours;
-            oc->hours_piston     = config->pistonHours;
-            oc->hours_engine     = config->engineHours;
-        }
-
 #if EFI_SHAFT_POSITION_INPUT
 	efiAssertVoid(ObdCode::CUSTOM_ERR_6661, getCurrentRemainingStack() > 64, "lowStckOnEv");
 
@@ -271,8 +204,6 @@ config->resetEngineHours = handleTimerReset(config->engineHours, config->resetEn
 #endif // EFI_TCU
 
 	tryResetWatchdog();
-	
-
 }
 
 void initPeriodicEvents() {
@@ -565,6 +496,7 @@ void commonInitEngineController() {
 #if EFI_LTFT_CONTROL
 	initLtft();
 #endif
+	initEngineHours();
 }
 
 PUBLIC_API_WEAK bool validateBoardConfig() {

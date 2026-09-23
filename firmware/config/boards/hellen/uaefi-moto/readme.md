@@ -1,0 +1,11 @@
+# uaEFI moto
+
+uaEFI derivative for motorcycle use:
+
+* two TE Superseal 1.0 34-pin headers (A: keying 1, power/outputs; B: keying 2, sensors)
+* four MAX31855 EGT channels with miniature type K thermocouple sockets on the side
+* two on-board LSU 4.9 wideband controllers (hardware index 1 and 5, same as super-uaefi)
+* no electronic throttle H-bridges (their MCU pins are used as EGT chip selects)
+* CR2032 backup battery on VBAT: keeps engine hour counters in RTC backup registers
+
+Base hardware: https://github.com/rusefi/uaefi

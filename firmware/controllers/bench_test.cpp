@@ -744,6 +744,10 @@ void executeTSCommand(uint16_t subsystem, uint16_t index) {
 		applyPreset(index);
 		break;
 
+	case TS_ENGINE_HOURS:
+		handleEngineHoursCommand(index);
+		break;
+
   case TS_BOARD_ACTION:
     boardTsAction(index);
 		break;

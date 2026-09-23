@@ -26,6 +26,17 @@ enum class backup_ram_e {
 	 */
 	IgnCounter,
 
+	/**
+	 * Engine hour counters, seconds, 32-bit each (stored in BKP1R..BKP5R)
+	 * and their CRC (stored in BKP6R). Used in engine_hours.cpp
+	 */
+	EngineHours0,
+	EngineHours1,
+	EngineHours2,
+	EngineHours3,
+	EngineHours4,
+	EngineHoursCrc,
+
 	/* The number of stored backup variables */
 	BACKUP_RAM_NUM,
 };

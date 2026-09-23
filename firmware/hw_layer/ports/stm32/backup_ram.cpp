@@ -13,6 +13,14 @@ uint32_t backupRamLoad(backup_ram_e idx) {
 		return RTCD1.rtc->BKP0R & 0xffff;
 	case backup_ram_e::IgnCounter:
 		return (RTCD1.rtc->BKP0R >> 16) & 0xff;
+	case backup_ram_e::EngineHours0:
+	case backup_ram_e::EngineHours1:
+	case backup_ram_e::EngineHours2:
+	case backup_ram_e::EngineHours3:
+	case backup_ram_e::EngineHours4:
+	case backup_ram_e::EngineHoursCrc:
+		// BKPxR registers are consecutive, engine hours use BKP1R..BKP6R
+		return (&RTCD1.rtc->BKP0R)[1 + (int)idx - (int)backup_ram_e::EngineHours0];
 	default:
 		criticalError("Invalid backup ram idx %d", (int)idx);
 		return 0;
@@ -30,6 +38,14 @@ void backupRamSave(backup_ram_e idx, uint32_t value) {
 		break;
 	case backup_ram_e::IgnCounter:
 		RTCD1.rtc->BKP0R = (RTCD1.rtc->BKP0R & ~0x00ff0000) | ((value & 0xff) << 16);
+		break;
+	case backup_ram_e::EngineHours0:
+	case backup_ram_e::EngineHours1:
+	case backup_ram_e::EngineHours2:
+	case backup_ram_e::EngineHours3:
+	case backup_ram_e::EngineHours4:
+	case backup_ram_e::EngineHoursCrc:
+		(&RTCD1.rtc->BKP0R)[1 + (int)idx - (int)backup_ram_e::EngineHours0] = value;
 		break;
 	default:
 		criticalError("Invalid backup ram idx %d, value %lx", (int)idx, value);

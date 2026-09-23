@@ -1,0 +1,229 @@
+meta: config/boards/hellen_mm100_meta.h
+
+pins:
+  - pin: B1
+    type: 5v
+    color: red
+    function: Sensor +5V supply
+
+  - pin: B2
+    type: 5v
+    color: red
+    function: Sensor +5V supply
+
+  - pin: B3
+    type: gnd
+    color: black
+    function: Sensor ground
+
+  - pin: B4
+    type: gnd
+    color: black
+    function: Sensor ground
+
+  - pin: B5
+    type: gnd
+    color: black
+    function: Sensor ground
+
+  - pin: B6
+    meta: MM100_IN_TPS_ANALOG
+    class: analog_inputs
+    type: av
+    color: orange
+    function: TPS1 input
+    ts_name: ___ TPS1
+
+  - pin: B7
+    meta: MM100_IN_AUX1_ANALOG
+    class: analog_inputs
+    type: av
+    color: orange
+    function: TPS2 input
+    ts_name: ___ TPS2
+
+  - pin: B8
+    meta: MM100_IN_CLT_ANALOG
+    class: analog_inputs
+    type: at
+    color: brown
+    function: CLT input
+    ts_name: ___ CLT
+
+  - pin: B9
+    meta: MM100_IN_IAT_ANALOG
+    class: analog_inputs
+    type: at
+    color: brown
+    function: IAT input
+    ts_name: ___ IAT
+
+  - pin: B10
+    meta: MM100_IN_MAP1_ANALOG
+    class: analog_inputs
+    type: av
+    color: orange
+    function: MAP input
+    ts_name: ___ MAP
+
+  - pin: B11
+    meta: MM100_IN_O2S_ANALOG
+    class: analog_inputs
+    type: av
+    color: orange
+    function: Analog input 1
+    ts_name: ___ Analog 1
+
+  - pin: B12
+    meta: MM100_IN_O2S2_ANALOG
+    class: analog_inputs
+    type: av
+    color: orange
+    function: Analog input 2
+    ts_name: ___ Analog 2
+
+  - pin: B13
+    meta: MM100_IN_PPS_ANALOG
+    class: analog_inputs
+    type: av
+    color: orange
+    function: Analog input 3
+    ts_name: ___ Analog 3
+
+  - pin: B14
+    meta: MM100_IN_AUX2_ANALOG
+    class: analog_inputs
+    type: av
+    color: orange
+    function: Analog input 4
+    ts_name: ___ Analog 4
+
+  - pin: B15
+    meta: MM100_IN_AUX3_ANALOG
+    class: analog_inputs
+    type: av
+    color: orange
+    function: Analog input 5
+    ts_name: ___ Analog 5
+
+  - pin: B16
+    meta: MM100_IN_D1
+    class: event_inputs
+    type: hall
+    color: purple
+    function: HALL input 1 (4.7K PU)
+    ts_name: ___ HALL1
+
+  - pin: B17
+    meta: MM100_IN_D2
+    class: event_inputs
+    type: hall
+    color: purple
+    function: HALL input 2 (4.7K PU)
+    ts_name: ___ HALL2
+
+  - pin: B18
+    meta: MM100_IN_D3
+    class: event_inputs
+    type: hall
+    color: purple
+    function: HALL input 3 / VSS (4.7K PU)
+    ts_name: ___ HALL3 / VSS
+
+  - pin: B19
+    meta: MM100_IN_VSS
+    class: event_inputs
+    type: din
+    color: purple
+    function: Flex input (10K PU)
+    ts_name: ___ FLEX
+
+  - pin: B20
+    meta: MM100_IN_CRANK
+    class: switch_inputs
+    type: din
+    color: purple
+    function: Switch input 1
+    ts_name: ___ BUTTON1
+
+  - pin: B21
+    meta: MM100_UART8_RX
+    class: event_inputs
+    type: vr
+    color: purple
+    function: VR1+ discrete
+    ts_name: ___ VR1+ Discrete
+
+  - pin: B22
+    type: vr
+    color: purple
+    function: VR1- discrete
+
+  - pin: B23
+    meta: MM100_UART8_TX
+    class: event_inputs
+    type: vr
+    color: purple
+    function: VR2+ max9924
+    ts_name: ___ VR2+ max9924
+
+  - pin: B24
+    type: vr
+    color: purple
+    function: VR2- max9924
+
+  - pin: B25
+    type: gnd
+    color: black
+    function: VR shield / ground
+
+  - pin: B26
+    type: knock
+    color: grey
+    function: Knock input
+
+  - pin: B27
+    type: wbo
+    color: red
+    function: WBO1 Ip (LSU pin 1)
+
+  - pin: B28
+    type: wbo
+    color: yellow
+    function: WBO1 Vs/Ip Vm (LSU pin 2)
+
+  - pin: B29
+    type: wbo
+    color: black
+    function: WBO1 Vs Un (LSU pin 6)
+
+  - pin: B30
+    type: wbo
+    color: green
+    function: WBO1 CalR Rtrim (LSU pin 5)
+
+  - pin: B31
+    type: wbo
+    color: red
+    function: WBO2 Ip (LSU pin 1)
+
+  - pin: B32
+    type: wbo
+    color: yellow
+    function: WBO2 Vs/Ip Vm (LSU pin 2)
+
+  - pin: B33
+    type: wbo
+    color: black
+    function: WBO2 Vs Un (LSU pin 6)
+
+  - pin: B34
+    type: wbo
+    color: green
+    function: WBO2 CalR Rtrim (LSU pin 5)
+
+info:
+  cid: b
+  title: Superseal 34 keying 2: sensors
+  name: uaefi-moto
+  directory: hellen/uaefi-moto

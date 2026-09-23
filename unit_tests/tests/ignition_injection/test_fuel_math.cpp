@@ -95,6 +95,38 @@ TEST(AirmassModes, AlphaNUseIat) {
 	EXPECT_NEAR(dut.getAirmass(1200, false).CylinderAirmass, expectedAirmassHot, EPS4D);
 }
 
+TEST(AirmassModes, AlphaNBaroCompensation) {
+	EngineTestHelper eth(engine_type_e::TEST_ENGINE);
+	// 4 cylinder 4 liter = easy math
+	engineConfiguration->displacement = 4.0f;
+	engineConfiguration->cylindersCount = 4;
+
+	StrictMock<MockVp3d> veTable;
+
+	EXPECT_CALL(veTable, getValue(1200, FloatNear(0.71f, EPS4D)))
+		.WillRepeatedly(Return(35.0f));
+
+	AlphaNAirmass dut(veTable);
+
+	Sensor::setMockValue(SensorType::Tps1, 0.71f);
+	Sensor::setMockValue(SensorType::BarometricPressure, 80);
+
+	// Mass of 1 liter of air * VE at standard atmosphere
+	mass_t expectedAirmass = 1.2047f * 0.35f;
+
+	// Baro compensation disabled: baro sensor is ignored
+	engineConfiguration->alphaNUseBaro = false;
+	EXPECT_NEAR(dut.getAirmass(1200, false).CylinderAirmass, expectedAirmass, EPS4D);
+
+	// Baro compensation enabled: airmass scales with pressure
+	engineConfiguration->alphaNUseBaro = true;
+	EXPECT_NEAR(dut.getAirmass(1200, false).CylinderAirmass, expectedAirmass * 80 / STD_ATMOSPHERE, EPS4D);
+
+	// Failed baro sensor falls back to standard atmosphere
+	Sensor::resetMockValue(SensorType::BarometricPressure);
+	EXPECT_NEAR(dut.getAirmass(1200, false).CylinderAirmass, expectedAirmass, EPS4D);
+}
+
 TEST(AirmassModes, AlphaNFailedTps) {
 	EngineTestHelper eth(engine_type_e::TEST_ENGINE);
 

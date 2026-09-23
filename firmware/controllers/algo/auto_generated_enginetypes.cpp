@@ -507,8 +507,8 @@ case TS_SET_ENGINE_TYPE:
   return "TS_SET_ENGINE_TYPE";
 case TS_SOLENOID_CATEGORY:
   return "TS_SOLENOID_CATEGORY";
-case TS_UNUSED_23:
-  return "TS_UNUSED_23";
+case TS_ENGINE_HOURS:
+  return "TS_ENGINE_HOURS";
 case TS_UNUSED_24:
   return "TS_UNUSED_24";
 case TS_UNUSED_26:
