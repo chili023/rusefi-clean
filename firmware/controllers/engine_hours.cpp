@@ -42,6 +42,18 @@ void engine_hours_s::updateCrc() {
 	crc = getCrc();
 }
 
+#if EFI_UNIT_TEST
+// unit tests have no persistentState container
+static engine_hours_s flashCopySimulation{};
+engine_hours_s& engineHoursFlashCopy() {
+	return flashCopySimulation;
+}
+#else
+engine_hours_s& engineHoursFlashCopy() {
+	return persistentState.engineHours;
+}
+#endif
+
 #if ENGINE_HOURS_BACKUP_REGISTERS
 
 static bool loadFromBackup(engine_hours_s& out) {
@@ -83,7 +95,7 @@ void engineHoursLoseBackupForTest() {
 
 void EngineHours::init() {
 	engine_hours_s fromBackup;
-	const engine_hours_s& fromFlash = persistentState.engineHours;
+	const engine_hours_s& fromFlash = engineHoursFlashCopy();
 
 	if (loadFromBackup(fromBackup)) {
 		m_hours = fromBackup;
@@ -111,7 +123,7 @@ void EngineHours::init() {
 void EngineHours::storeToBackup() {
 	saveToBackup(m_hours);
 	// keep RAM copy current so any configuration burn also stores recent values
-	persistentState.engineHours = m_hours;
+	engineHoursFlashCopy() = m_hours;
 }
 
 void EngineHours::updateFlashCopy(bool forceSave) {
@@ -131,7 +143,7 @@ void EngineHours::updateFlashCopy(bool forceSave) {
 	}
 
 	m_lastFlashSave = m_hours;
-	persistentState.engineHours = m_hours;
+	engineHoursFlashCopy() = m_hours;
 	flashSaveCounter++;
 #if EFI_CONFIGURATION_STORAGE
 	// actual write is postponed by storage manager until engine is stopped

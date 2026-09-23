@@ -224,6 +224,6 @@ pins:
 
 info:
   cid: b
-  title: Superseal 34 keying 2: sensors
+  title: "Superseal 34 keying 2 - sensors"
   name: uaefi-moto
   directory: hellen/uaefi-moto

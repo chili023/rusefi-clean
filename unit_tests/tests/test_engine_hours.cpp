@@ -12,7 +12,7 @@ static void runFor(EngineHours* dut, int seconds) {
 
 static EngineHours* setupEngineHours() {
 	engineHoursLoseBackupForTest();
-	persistentState.engineHours = {};
+	engineHoursFlashCopy() = {};
 
 	auto& dut = engine->module<EngineHours>().unmock();
 	dut->resetForTest();
@@ -70,8 +70,8 @@ TEST(EngineHours, FlashCopyWhenBackupLost) {
 	// more than threshold accumulated: flash save requested once engine stopped
 	EXPECT_EQ(1u, dut->flashSaveCounter);
 	uint32_t saved = dut->getSeconds(4);
-	EXPECT_TRUE(persistentState.engineHours.isValid());
-	EXPECT_EQ(saved, persistentState.engineHours.seconds[4]);
+	EXPECT_TRUE(engineHoursFlashCopy().isValid());
+	EXPECT_EQ(saved, engineHoursFlashCopy().seconds[4]);
 
 	// not again without more running
 	runFor(dut, 10);
@@ -86,8 +86,8 @@ TEST(EngineHours, FlashCopyWhenBackupLost) {
 
 	// backup battery lost + power cycle: restore last flash copy
 	// (persistentState RAM copy is always current, simulate flash content)
-	persistentState.engineHours.seconds[4] = saved;
-	persistentState.engineHours.updateCrc();
+	engineHoursFlashCopy().seconds[4] = saved;
+	engineHoursFlashCopy().updateCrc();
 	engineHoursLoseBackupForTest();
 	dut->resetForTest();
 	dut->onSlowCallback();
@@ -112,7 +112,7 @@ TEST(EngineHours, ResetSingleCounter) {
 	EXPECT_NEAR(300, dut->getSeconds(4), 1);
 	// reset is persisted to flash immediately
 	EXPECT_EQ(1u, dut->flashSaveCounter);
-	EXPECT_EQ(0u, persistentState.engineHours.seconds[1]);
+	EXPECT_EQ(0u, engineHoursFlashCopy().seconds[1]);
 
 	// reset survives power cycle
 	dut->resetForTest();

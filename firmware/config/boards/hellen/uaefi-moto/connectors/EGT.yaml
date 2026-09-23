@@ -51,6 +51,6 @@ pins:
 
 info:
   cid: egt
-  title: Side EGT sockets (miniature type K)
+  title: "Side EGT sockets (miniature type K)"
   name: uaefi-moto
   directory: hellen/uaefi-moto

@@ -63,6 +63,8 @@ private:
 };
 
 void initEngineHours();
+// copy stored together with the configuration in flash (persistentState)
+engine_hours_s& engineHoursFlashCopy();
 // TS_ENGINE_HOURS command: index 0..4 resets that counter, ENGINE_HOURS_CMD_SAVE forces flash save
 void handleEngineHoursCommand(uint16_t index);
 #if EFI_UNIT_TEST

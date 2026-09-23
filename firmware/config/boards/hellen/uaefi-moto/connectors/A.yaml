@@ -1,7 +1,7 @@
 meta: config/boards/hellen_mm100_meta.h
 
 pins:
-- pin: A1
+  - pin: A1
     type: 12v
     color: red
     function: +12V battery / ECU supply
@@ -230,6 +230,6 @@ pins:
 
 info:
   cid: a
-  title: Superseal 34 keying 1: power and outputs
+  title: "Superseal 34 keying 1 - power and outputs"
   name: uaefi-moto
   directory: hellen/uaefi-moto
