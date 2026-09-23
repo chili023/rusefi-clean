@@ -3,51 +3,43 @@ meta: config/boards/hellen_mm100_meta.h
 pins:
   - pin: EGT1+
     type: egt
-    color: yellow
-    function: EGT1 type K miniature thermocouple socket, positive (chromel)
-    ts_name: EGT1+
+    function: "EGT1 + (Chromel) (Mini-Buchse PCC-SMP-K)"
+    ts_name: "EGT1+"
 
   - pin: EGT1-
     type: egt
-    color: red
-    function: EGT1 type K miniature thermocouple socket, negative (alumel)
-    ts_name: EGT1-
+    function: "EGT1 - (Alumel)"
+    ts_name: "EGT1-"
 
   - pin: EGT2+
     type: egt
-    color: yellow
-    function: EGT2 type K miniature thermocouple socket, positive (chromel)
-    ts_name: EGT2+
+    function: "EGT2 + (Chromel) (Mini-Buchse PCC-SMP-K)"
+    ts_name: "EGT2+"
 
   - pin: EGT2-
     type: egt
-    color: red
-    function: EGT2 type K miniature thermocouple socket, negative (alumel)
-    ts_name: EGT2-
+    function: "EGT2 - (Alumel)"
+    ts_name: "EGT2-"
 
   - pin: EGT3+
     type: egt
-    color: yellow
-    function: EGT3 type K miniature thermocouple socket, positive (chromel)
-    ts_name: EGT3+
+    function: "EGT3 + (Chromel) (Mini-Buchse PCC-SMP-K)"
+    ts_name: "EGT3+"
 
   - pin: EGT3-
     type: egt
-    color: red
-    function: EGT3 type K miniature thermocouple socket, negative (alumel)
-    ts_name: EGT3-
+    function: "EGT3 - (Alumel)"
+    ts_name: "EGT3-"
 
   - pin: EGT4+
     type: egt
-    color: yellow
-    function: EGT4 type K miniature thermocouple socket, positive (chromel)
-    ts_name: EGT4+
+    function: "EGT4 + (Chromel) (Mini-Buchse PCC-SMP-K)"
+    ts_name: "EGT4+"
 
   - pin: EGT4-
     type: egt
-    color: red
-    function: EGT4 type K miniature thermocouple socket, negative (alumel)
-    ts_name: EGT4-
+    function: "EGT4 - (Alumel)"
+    ts_name: "EGT4-"
 
 info:
   cid: egt

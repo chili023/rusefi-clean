@@ -3,6 +3,7 @@
  *
  * uaEFI derivative with two Superseal 1.0 34-pin headers, four EGT channels and two on-board widebands.
  * Pinout: connectors/A.yaml, connectors/B.yaml, connectors/EGT.yaml
+ * Source of truth for the pinout is the wiring spreadsheet uaefi-moto-pinout.xlsx (moto/ folder of the hardware repo)
  */
 
 #include "pch.h"
@@ -11,30 +12,27 @@
 #include "hellen_leds_100.cpp"
 #include "board_overrides.h"
 
+// injectors and coils 5/6 are not on the connectors of this board
 static void setInjectorPins() {
-	engineConfiguration->injectionPins[0] = Gpio::MM100_INJ1; // A7
-	engineConfiguration->injectionPins[1] = Gpio::MM100_INJ2; // A8
-	engineConfiguration->injectionPins[2] = Gpio::MM100_INJ3; // A9
-	engineConfiguration->injectionPins[3] = Gpio::MM100_INJ4; // A10
-	engineConfiguration->injectionPins[4] = Gpio::MM100_INJ5; // A11
-	engineConfiguration->injectionPins[5] = Gpio::MM100_INJ6; // A12
+	engineConfiguration->injectionPins[0] = Gpio::MM100_INJ1; // A11
+	engineConfiguration->injectionPins[1] = Gpio::MM100_INJ2; // A12
+	engineConfiguration->injectionPins[2] = Gpio::MM100_INJ3; // B5
+	engineConfiguration->injectionPins[3] = Gpio::MM100_INJ4; // B6
 }
 
 static void setIgnitionPins() {
 	engineConfiguration->ignitionPins[0] = Gpio::MM100_IGN1; // A13
 	engineConfiguration->ignitionPins[1] = Gpio::MM100_IGN2; // A14
-	engineConfiguration->ignitionPins[2] = Gpio::MM100_IGN3; // A15
-	engineConfiguration->ignitionPins[3] = Gpio::MM100_IGN4; // A16
-	engineConfiguration->ignitionPins[4] = Gpio::MM100_IGN5; // A17
-	engineConfiguration->ignitionPins[5] = Gpio::MM100_IGN6; // A18
+	engineConfiguration->ignitionPins[2] = Gpio::MM100_IGN3; // B7
+	engineConfiguration->ignitionPins[3] = Gpio::MM100_IGN4; // B8
 }
 
 static void setGppwmPins() {
 	// all four with flyback diode
-	engineConfiguration->gppwm[0].pin = Gpio::MM100_INJ7; // A19 GPPWM1
-	engineConfiguration->gppwm[1].pin = Gpio::MM100_INJ8; // A20 GPPWM2
-	engineConfiguration->gppwm[2].pin = Gpio::MM100_OUT_PWM1; // A21 GPPWM3
-	engineConfiguration->gppwm[3].pin = Gpio::MM100_OUT_PWM2; // A22 GPPWM4
+	engineConfiguration->gppwm[0].pin = Gpio::MM100_INJ7; // A15 GPPWM1
+	engineConfiguration->gppwm[1].pin = Gpio::MM100_INJ8; // A16 GPPWM2
+	engineConfiguration->gppwm[2].pin = Gpio::MM100_OUT_PWM1; // B9 GPPWM3
+	engineConfiguration->gppwm[3].pin = Gpio::MM100_OUT_PWM2; // B10 GPPWM4
 }
 
 static void setEgtPins() {
@@ -52,17 +50,20 @@ static void setEgtPins() {
 }
 
 static void setupDefaultSensorInputs() {
-	engineConfiguration->tps1_1AdcChannel = MM100_IN_TPS_ANALOG; // B6
-	engineConfiguration->tps1_2AdcChannel = MM100_IN_AUX1_ANALOG; // B7
-	engineConfiguration->clt.adcChannel = MM100_IN_CLT_ANALOG; // B8
-	engineConfiguration->iat.adcChannel = MM100_IN_IAT_ANALOG; // B9
-	engineConfiguration->map.sensor.hwChannel = MM100_IN_MAP1_ANALOG; // B10
+	engineConfiguration->tps1_1AdcChannel = MM100_IN_TPS_ANALOG; // A17
+	engineConfiguration->tps1_2AdcChannel = MM100_IN_AUX1_ANALOG; // B13
+	engineConfiguration->clt.adcChannel = MM100_IN_CLT_ANALOG; // A18
+	engineConfiguration->iat.adcChannel = MM100_IN_IAT_ANALOG; // A19
+	engineConfiguration->map.sensor.hwChannel = MM100_IN_MAP1_ANALOG; // B14
 
-	// Hall sensors on B16/B17, VR inputs on B21..B24 are available as alternative
-	engineConfiguration->triggerInputPins[0] = Gpio::MM100_IN_D1; // B16 HALL1
-	engineConfiguration->camInputs[0] = Gpio::MM100_IN_D2; // B17 HALL2
+	// crank hall on A20, cam hall on B19, VR inputs on B23..B26 are available as alternative
+	engineConfiguration->triggerInputPins[0] = Gpio::MM100_IN_D1; // A20 HALL1
+	engineConfiguration->camInputs[0] = Gpio::MM100_IN_D2; // B19 HALL2
 
-	engineConfiguration->vehicleSpeedSensorInputPin = Gpio::MM100_IN_D3; // B18 HALL3/VSS
+	// wheel speed: front wheel as vehicle speed, rear wheel as aux speed 1 for slip ratio
+	engineConfiguration->vehicleSpeedSensorInputPin = Gpio::MM100_IN_D3; // B20 wheel sensor 1 (front)
+	// needs R39 populated as pull-up and R36 not populated
+	engineConfiguration->auxSpeedSensorInputPin[0] = Gpio::MM100_IN_CAM; // B28 wheel sensor 2 (rear)
 }
 
 static void uaefi_moto_boardConfigOverrides() {
@@ -109,7 +110,7 @@ static void uaefi_moto_boardDefaultConfiguration() {
 	setHellenCan2();
 
 	// ECU is powered directly from ignition, no main relay
-	// A23 (IGN7) and A24 (IGN8) are general purpose weak low side outputs
+	// A33 (IGN7) and B12 (IGN8) are general purpose weak low side outputs
 	engineConfiguration->mainRelayPin = Gpio::Unassigned;
 	engineConfiguration->fanPin = Gpio::Unassigned;
 	engineConfiguration->fuelPumpPin = Gpio::Unassigned;
@@ -141,25 +142,21 @@ static void uaefi_moto_boardDefaultConfiguration() {
 }
 
 static Gpio OUTPUTS[] = {
-	Gpio::MM100_INJ1, // A7 injector output 1
-	Gpio::MM100_INJ2, // A8 injector output 2
-	Gpio::MM100_INJ3, // A9 injector output 3
-	Gpio::MM100_INJ4, // A10 injector output 4
-	Gpio::MM100_INJ5, // A11 injector output 5
-	Gpio::MM100_INJ6, // A12 injector output 6
-	Gpio::MM100_INJ7, // A19 GPPWM1 low side (has flyback)
-	Gpio::MM100_INJ8, // A20 GPPWM2 low side (has flyback)
-	Gpio::MM100_OUT_PWM1, // A21 GPPWM3 low side (has flyback)
-	Gpio::MM100_OUT_PWM2, // A22 GPPWM4 low side (has flyback)
-	Gpio::MM100_IGN7, // A23 weak low side 1 (relay, no flyback)
-	Gpio::MM100_IGN8, // A24 weak low side 2 (relay, no flyback)
+	Gpio::MM100_INJ1, // A11 injector output 1
+	Gpio::MM100_INJ2, // A12 injector output 2
+	Gpio::MM100_INJ3, // B5 injector output 3
+	Gpio::MM100_INJ4, // B6 injector output 4
+	Gpio::MM100_INJ7, // A15 GPPWM1 low side (has flyback)
+	Gpio::MM100_INJ8, // A16 GPPWM2 low side (has flyback)
+	Gpio::MM100_OUT_PWM1, // B9 GPPWM3 low side (has flyback)
+	Gpio::MM100_OUT_PWM2, // B10 GPPWM4 low side (has flyback)
+	Gpio::MM100_IGN7, // A33 weak low side 1 (relay, no flyback)
+	Gpio::MM100_IGN8, // B12 weak low side 2 (relay, no flyback)
 	// logic level coil outputs
 	Gpio::MM100_IGN1, // A13 Coil 1
 	Gpio::MM100_IGN2, // A14 Coil 2
-	Gpio::MM100_IGN3, // A15 Coil 3
-	Gpio::MM100_IGN4, // A16 Coil 4
-	Gpio::MM100_IGN5, // A17 Coil 5
-	Gpio::MM100_IGN6, // A18 Coil 6
+	Gpio::MM100_IGN3, // B7 Coil 3
+	Gpio::MM100_IGN4, // B8 Coil 4
 };
 
 int getBoardMetaOutputsCount() {
@@ -167,7 +164,7 @@ int getBoardMetaOutputsCount() {
 }
 
 int getBoardMetaLowSideOutputsCount() {
-	return getBoardMetaOutputsCount() - 6;
+	return getBoardMetaOutputsCount() - 4;
 }
 
 Gpio* getBoardMetaOutputs() {

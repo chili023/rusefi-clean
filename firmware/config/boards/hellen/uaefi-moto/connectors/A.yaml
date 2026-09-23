@@ -3,233 +3,178 @@ meta: config/boards/hellen_mm100_meta.h
 pins:
   - pin: A1
     type: 12v
-    color: red
-    function: +12V battery / ECU supply
+    function: "+12V Batterie / ECU-Versorgung (ueber F2 auf +12V_RAW)"
 
   - pin: A2
     meta: MM100_IN_VBATT
     class: analog_inputs
     type: 12v
-    color: red
-    function: Ignition switch (same as +12V on this bike)
-    ts_name: ___ Voltage From Key
+    function: "Zuendung (Schluessel) (ohne Main-Relais identisch mit +12V)"
+    ts_name: "___ Zuendung (Schluessel)"
 
   - pin: A3
-    type: gnd
-    color: black
-    function: Power Ground
+    type: 12v
+    function: "+12V Hallsensoren (A) (PTC F11 200 mA, gleiches Netz wie B1)"
 
   - pin: A4
-    type: gnd
-    color: black
-    function: Power Ground
+    type: 12v
+    function: "+5V Sensor (A1) (geschuetzte 5V)"
 
   - pin: A5
-    type: gnd
-    color: black
-    function: Power Ground
+    type: 12v
+    function: "+5V Sensor (A2)"
 
   - pin: A6
-    type: 12v
-    color: red
-    function: +12V output for hall sensors (PTC fused)
+    type: gnd
+    function: "Sensormasse (A1)"
 
   - pin: A7
+    type: gnd
+    function: "Sensormasse (A2)"
+
+  - pin: A8
+    type: gnd
+    function: "Leistungsmasse (A1)"
+
+  - pin: A9
+    type: gnd
+    function: "Leistungsmasse (A2)"
+
+  - pin: A10
+    type: gnd
+    function: "Leistungsmasse (A3)"
+
+  - pin: A11
     meta: MM100_INJ1
     class: outputs
     type: ls
-    color: blue
-    function: Injector output 1
-    ts_name: ___ Injector 1
+    function: "Einspritzduese 1"
+    ts_name: "___ Einspritzduese 1"
 
-  - pin: A8
+  - pin: A12
     meta: MM100_INJ2
     class: outputs
     type: ls
-    color: blue
-    function: Injector output 2
-    ts_name: ___ Injector 2
-
-  - pin: A9
-    meta: MM100_INJ3
-    class: outputs
-    type: ls
-    color: blue
-    function: Injector output 3
-    ts_name: ___ Injector 3
-
-  - pin: A10
-    meta: MM100_INJ4
-    class: outputs
-    type: ls
-    color: blue
-    function: Injector output 4
-    ts_name: ___ Injector 4
-
-  - pin: A11
-    meta: MM100_INJ5
-    class: outputs
-    type: ls
-    color: blue
-    function: Injector output 5
-    ts_name: ___ Injector 5
-
-  - pin: A12
-    meta: MM100_INJ6
-    class: outputs
-    type: ls
-    color: blue
-    function: Injector output 6
-    ts_name: ___ Injector 6
+    function: "Einspritzduese 2"
+    ts_name: "___ Einspritzduese 2"
 
   - pin: A13
     meta: MM100_IGN1
     class: outputs
     type: ign
-    color: yellow
-    function: Coil 1 (logic level, for coils with integrated igniter)
-    ts_name: ___ Coil 1
+    function: "Zuendspule 1 (fuer Spulen mit eingebauter Endstufe)"
+    ts_name: "___ Zuendspule 1"
 
   - pin: A14
     meta: MM100_IGN2
     class: outputs
     type: ign
-    color: yellow
-    function: Coil 2 (logic level, for coils with integrated igniter)
-    ts_name: ___ Coil 2
+    function: "Zuendspule 2 (fuer Spulen mit eingebauter Endstufe)"
+    ts_name: "___ Zuendspule 2"
 
   - pin: A15
-    meta: MM100_IGN3
-    class: outputs
-    type: ign
-    color: yellow
-    function: Coil 3 (logic level, for coils with integrated igniter)
-    ts_name: ___ Coil 3
-
-  - pin: A16
-    meta: MM100_IGN4
-    class: outputs
-    type: ign
-    color: yellow
-    function: Coil 4 (logic level, for coils with integrated igniter)
-    ts_name: ___ Coil 4
-
-  - pin: A17
-    meta: MM100_IGN5
-    class: outputs
-    type: ign
-    color: yellow
-    function: Coil 5 (logic level, for coils with integrated igniter)
-    ts_name: ___ Coil 5
-
-  - pin: A18
-    meta: MM100_IGN6
-    class: outputs
-    type: ign
-    color: yellow
-    function: Coil 6 (logic level, for coils with integrated igniter)
-    ts_name: ___ Coil 6
-
-  - pin: A19
     meta: MM100_INJ7
     class: outputs
     type: ls
-    color: green
-    function: GPPWM1 low side output (has flyback)
-    ts_name: ___ GPPWM1 low side
+    function: "GPPWM1 (mit Freilaufdiode)"
+    ts_name: "___ GPPWM1"
 
-  - pin: A20
+  - pin: A16
     meta: MM100_INJ8
     class: outputs
     type: ls
-    color: green
-    function: GPPWM2 low side output (has flyback)
-    ts_name: ___ GPPWM2 low side
+    function: "GPPWM2 (mit Freilaufdiode)"
+    ts_name: "___ GPPWM2"
+
+  - pin: A17
+    meta: MM100_IN_TPS_ANALOG
+    class: analog_inputs
+    type: av
+    function: "TPS1"
+    ts_name: "___ TPS1"
+
+  - pin: A18
+    meta: MM100_IN_CLT_ANALOG
+    class: analog_inputs
+    type: av
+    function: "CLT"
+    ts_name: "___ CLT"
+
+  - pin: A19
+    meta: MM100_IN_IAT_ANALOG
+    class: analog_inputs
+    type: av
+    function: "IAT"
+    ts_name: "___ IAT"
+
+  - pin: A20
+    meta: MM100_IN_D1
+    class: event_inputs
+    type: hall
+    function: "Hall 1 (Kurbelwelle) (4,7k Pull-up, Trigger in Firmware)"
+    ts_name: "___ Hall 1 (Kurbelwelle)"
 
   - pin: A21
-    meta: MM100_OUT_PWM1
-    class: outputs
-    type: ls
-    color: green
-    function: GPPWM3 low side output (has flyback)
-    ts_name: ___ GPPWM3 low side
+    type: wbo
+    function: "Lambda 1 Heizung + (LSU Pin 4) (kalt kurz bis 2 A)"
 
   - pin: A22
-    meta: MM100_OUT_PWM2
-    class: outputs
-    type: ls
-    color: green
-    function: GPPWM4 low side output (has flyback)
-    ts_name: ___ GPPWM4 low side
+    type: wbo
+    function: "Lambda 1 Heizung - (LSU Pin 3) (kalt kurz bis 2 A)"
 
   - pin: A23
-    meta: MM100_IGN7
-    class: outputs
-    type: ls
-    color: green
-    function: Weak low side output 1 (relay, no flyback)
-    ts_name: ___ Weak low side 1
+    type: wbo
+    function: "Lambda 1 Ip (LSU Pin 1)"
 
   - pin: A24
-    meta: MM100_IGN8
-    class: outputs
-    type: ls
-    color: green
-    function: Weak low side output 2 (relay, no flyback)
-    ts_name: ___ Weak low side 2
+    type: wbo
+    function: "Lambda 1 Vm (LSU Pin 2)"
 
   - pin: A25
     type: wbo
-    color: grey
-    function: WBO1 Heater Positive (LSU pin 4)
+    function: "Lambda 1 Un (LSU Pin 6)"
 
   - pin: A26
     type: wbo
-    color: white
-    function: WBO1 Heater Negative (LSU pin 3)
+    function: "Lambda 1 Rtrim (LSU Pin 5)"
 
   - pin: A27
-    type: wbo
-    color: grey
-    function: WBO2 Heater Positive (LSU pin 4)
+    type: usb
+    function: "USB VBUS (USB-Erkennung)"
 
   - pin: A28
-    type: wbo
-    color: white
-    function: WBO2 Heater Negative (LSU pin 3)
+    type: usb
+    function: "USB D+ (verdrillt mit D-)"
 
   - pin: A29
     type: usb
-    color: red
-    function: USB VBUS (USB detection)
+    function: "USB D-"
 
   - pin: A30
-    type: usb
-    color: green
-    function: USB D+
+    type: gnd
+    function: "USB Masse"
 
   - pin: A31
-    type: usb
-    color: white
-    function: USB D-
+    type: can
+    function: "CAN High (intern auch Lambda-Module)"
 
   - pin: A32
-    type: gnd
-    color: black
-    function: USB Ground
+    type: can
+    function: "CAN Low"
 
   - pin: A33
-    type: can
-    color: yellow
-    function: CAN1 bus high
+    meta: MM100_IGN7
+    class: outputs
+    type: ls
+    function: "schwacher Low-Side 1 (nur Relais, keine Freilaufdiode)"
+    ts_name: "___ schwacher Low-Side 1"
 
   - pin: A34
-    type: can
-    color: green
-    function: CAN1 bus low
+    type: knock
+    function: "Klopfsensor (Schirm auf Sensormasse)"
 
 info:
   cid: a
-  title: "Superseal 34 keying 1 - power and outputs"
+  title: "Superseal 34 keying 1 - A (base)"
   name: uaefi-moto
   directory: hellen/uaefi-moto

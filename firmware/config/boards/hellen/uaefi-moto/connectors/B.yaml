@@ -2,228 +2,206 @@ meta: config/boards/hellen_mm100_meta.h
 
 pins:
   - pin: B1
-    type: 5v
-    color: red
-    function: Sensor +5V supply
+    type: 12v
+    function: "+12V Hallsensoren (B) (gleiches Netz wie A3)"
 
   - pin: B2
-    type: 5v
-    color: red
-    function: Sensor +5V supply
+    type: 12v
+    function: "+5V Sensor (B)"
 
   - pin: B3
     type: gnd
-    color: black
-    function: Sensor ground
+    function: "Sensormasse (B)"
 
   - pin: B4
     type: gnd
-    color: black
-    function: Sensor ground
+    function: "Leistungsmasse (B) (Rueckstrom INJ/IGN/GPPWM 3-4, Lambda-2-Heizung)"
 
   - pin: B5
-    type: gnd
-    color: black
-    function: Sensor ground
+    meta: MM100_INJ3
+    class: outputs
+    type: ls
+    function: "Einspritzduese 3"
+    ts_name: "___ Einspritzduese 3"
 
   - pin: B6
-    meta: MM100_IN_TPS_ANALOG
-    class: analog_inputs
-    type: av
-    color: orange
-    function: TPS1 input
-    ts_name: ___ TPS1
+    meta: MM100_INJ4
+    class: outputs
+    type: ls
+    function: "Einspritzduese 4"
+    ts_name: "___ Einspritzduese 4"
 
   - pin: B7
-    meta: MM100_IN_AUX1_ANALOG
-    class: analog_inputs
-    type: av
-    color: orange
-    function: TPS2 input
-    ts_name: ___ TPS2
+    meta: MM100_IGN3
+    class: outputs
+    type: ign
+    function: "Zuendspule 3 (fuer Spulen mit eingebauter Endstufe)"
+    ts_name: "___ Zuendspule 3"
 
   - pin: B8
-    meta: MM100_IN_CLT_ANALOG
-    class: analog_inputs
-    type: at
-    color: brown
-    function: CLT input
-    ts_name: ___ CLT
+    meta: MM100_IGN4
+    class: outputs
+    type: ign
+    function: "Zuendspule 4 (fuer Spulen mit eingebauter Endstufe)"
+    ts_name: "___ Zuendspule 4"
 
   - pin: B9
-    meta: MM100_IN_IAT_ANALOG
-    class: analog_inputs
-    type: at
-    color: brown
-    function: IAT input
-    ts_name: ___ IAT
+    meta: MM100_OUT_PWM1
+    class: outputs
+    type: ls
+    function: "GPPWM3 (mit Freilaufdiode)"
+    ts_name: "___ GPPWM3"
 
   - pin: B10
-    meta: MM100_IN_MAP1_ANALOG
-    class: analog_inputs
-    type: av
-    color: orange
-    function: MAP input
-    ts_name: ___ MAP
+    meta: MM100_OUT_PWM2
+    class: outputs
+    type: ls
+    function: "GPPWM4 (mit Freilaufdiode)"
+    ts_name: "___ GPPWM4"
 
   - pin: B11
-    meta: MM100_IN_O2S_ANALOG
-    class: analog_inputs
-    type: av
-    color: orange
-    function: Analog input 1
-    ts_name: ___ Analog 1
-
-  - pin: B12
-    meta: MM100_IN_O2S2_ANALOG
-    class: analog_inputs
-    type: av
-    color: orange
-    function: Analog input 2
-    ts_name: ___ Analog 2
-
-  - pin: B13
-    meta: MM100_IN_PPS_ANALOG
-    class: analog_inputs
-    type: av
-    color: orange
-    function: Analog input 3
-    ts_name: ___ Analog 3
-
-  - pin: B14
-    meta: MM100_IN_AUX2_ANALOG
-    class: analog_inputs
-    type: av
-    color: orange
-    function: Analog input 4
-    ts_name: ___ Analog 4
-
-  - pin: B15
     meta: MM100_IN_AUX3_ANALOG
     class: analog_inputs
     type: av
-    color: orange
-    function: Analog input 5
-    ts_name: ___ Analog 5
+    function: "Analog 5"
+    ts_name: "___ Analog 5"
+
+  - pin: B12
+    meta: MM100_IGN8
+    class: outputs
+    type: ls
+    function: "schwacher Low-Side 2 (nur Relais, keine Freilaufdiode)"
+    ts_name: "___ schwacher Low-Side 2"
+
+  - pin: B13
+    meta: MM100_IN_AUX1_ANALOG
+    class: analog_inputs
+    type: av
+    function: "TPS2"
+    ts_name: "___ TPS2"
+
+  - pin: B14
+    meta: MM100_IN_MAP1_ANALOG
+    class: analog_inputs
+    type: av
+    function: "MAP (Baro kommt vom MAP-Sensor auf der Platine)"
+    ts_name: "___ MAP"
+
+  - pin: B15
+    meta: MM100_IN_O2S_ANALOG
+    class: analog_inputs
+    type: av
+    function: "Analog 1"
+    ts_name: "___ Analog 1"
 
   - pin: B16
-    meta: MM100_IN_D1
-    class: event_inputs
-    type: hall
-    color: purple
-    function: HALL input 1 (4.7K PU)
-    ts_name: ___ HALL1
+    meta: MM100_IN_O2S2_ANALOG
+    class: analog_inputs
+    type: av
+    function: "Analog 2"
+    ts_name: "___ Analog 2"
 
   - pin: B17
+    meta: MM100_IN_PPS_ANALOG
+    class: analog_inputs
+    type: av
+    function: "Analog 3"
+    ts_name: "___ Analog 3"
+
+  - pin: B18
+    meta: MM100_IN_AUX2_ANALOG
+    class: analog_inputs
+    type: av
+    function: "Analog 4"
+    ts_name: "___ Analog 4"
+
+  - pin: B19
     meta: MM100_IN_D2
     class: event_inputs
     type: hall
-    color: purple
-    function: HALL input 2 (4.7K PU)
-    ts_name: ___ HALL2
+    function: "Hall 2 (4,7k Pull-up)"
+    ts_name: "___ Hall 2"
 
-  - pin: B18
+  - pin: B20
     meta: MM100_IN_D3
     class: event_inputs
     type: hall
-    color: purple
-    function: HALL input 3 / VSS (4.7K PU)
-    ts_name: ___ HALL3 / VSS
-
-  - pin: B19
-    meta: MM100_IN_VSS
-    class: event_inputs
-    type: din
-    color: purple
-    function: Flex input (10K PU)
-    ts_name: ___ FLEX
-
-  - pin: B20
-    meta: MM100_IN_CRANK
-    class: switch_inputs
-    type: din
-    color: purple
-    function: Switch input 1
-    ts_name: ___ BUTTON1
+    function: "Hall 3 / Radsensor 1 (VSS) (4,7k Pull-up, in Firmware als VSS)"
+    ts_name: "___ Hall 3 / Radsensor 1 (VSS)"
 
   - pin: B21
+    meta: MM100_IN_VSS
+    class: event_inputs
+    type: hall
+    function: "Flex (10k Pull-up)"
+    ts_name: "___ Flex"
+
+  - pin: B22
+    meta: MM100_IN_CRANK
+    class: switch_inputs
+    type: hall
+    function: "Schalteingang 1"
+    ts_name: "___ Schalteingang 1"
+
+  - pin: B23
     meta: MM100_UART8_RX
     class: event_inputs
     type: vr
-    color: purple
-    function: VR1+ discrete
-    ts_name: ___ VR1+ Discrete
-
-  - pin: B22
-    type: vr
-    color: purple
-    function: VR1- discrete
-
-  - pin: B23
-    meta: MM100_UART8_TX
-    class: event_inputs
-    type: vr
-    color: purple
-    function: VR2+ max9924
-    ts_name: ___ VR2+ max9924
+    function: "VR1 + (diskret)"
+    ts_name: "___ VR1 + (diskret)"
 
   - pin: B24
     type: vr
-    color: purple
-    function: VR2- max9924
+    function: "VR1 - (diskret)"
 
   - pin: B25
-    type: gnd
-    color: black
-    function: VR shield / ground
+    meta: MM100_UART8_TX
+    class: event_inputs
+    type: vr
+    function: "VR2 + (MAX9924)"
+    ts_name: "___ VR2 + (MAX9924)"
 
   - pin: B26
-    type: knock
-    color: grey
-    function: Knock input
+    type: vr
+    function: "VR2 - (MAX9924)"
 
   - pin: B27
-    type: wbo
-    color: red
-    function: WBO1 Ip (LSU pin 1)
+    type: gnd
+    function: "VR Schirm"
 
   - pin: B28
-    type: wbo
-    color: yellow
-    function: WBO1 Vs/Ip Vm (LSU pin 2)
+    meta: MM100_IN_CAM
+    class: event_inputs
+    type: hall
+    function: "Radsensor 2 (Schalteingang 2) (fuer Hall-Radsensor R39 als Pull-up bestuecken, R36 weglassen)"
+    ts_name: "___ Radsensor 2 (Schalteingang 2)"
 
   - pin: B29
     type: wbo
-    color: black
-    function: WBO1 Vs Un (LSU pin 6)
+    function: "Lambda 2 Heizung + (LSU Pin 4) (kalt kurz bis 2 A)"
 
   - pin: B30
     type: wbo
-    color: green
-    function: WBO1 CalR Rtrim (LSU pin 5)
+    function: "Lambda 2 Heizung - (LSU Pin 3) (kalt kurz bis 2 A)"
 
   - pin: B31
     type: wbo
-    color: red
-    function: WBO2 Ip (LSU pin 1)
+    function: "Lambda 2 Ip (LSU Pin 1)"
 
   - pin: B32
     type: wbo
-    color: yellow
-    function: WBO2 Vs/Ip Vm (LSU pin 2)
+    function: "Lambda 2 Vm (LSU Pin 2)"
 
   - pin: B33
     type: wbo
-    color: black
-    function: WBO2 Vs Un (LSU pin 6)
+    function: "Lambda 2 Un (LSU Pin 6)"
 
   - pin: B34
     type: wbo
-    color: green
-    function: WBO2 CalR Rtrim (LSU pin 5)
+    function: "Lambda 2 Rtrim (LSU Pin 5)"
 
 info:
   cid: b
-  title: "Superseal 34 keying 2 - sensors"
+  title: "Superseal 34 keying 2 - B (extension)"
   name: uaefi-moto
   directory: hellen/uaefi-moto
