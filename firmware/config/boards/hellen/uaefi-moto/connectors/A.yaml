@@ -1,7 +1,7 @@
 meta: config/boards/hellen_mm100_meta.h
 
 pins:
-  - pin: A1
+- pin: A1
     type: 12v
     color: red
     function: +12V battery / ECU supply
@@ -30,9 +30,9 @@ pins:
     function: Power Ground
 
   - pin: A6
-    type: gnd
-    color: black
-    function: Power Ground
+    type: 12v
+    color: red
+    function: +12V output for hall sensors (PTC fused)
 
   - pin: A7
     meta: MM100_INJ1
@@ -179,36 +179,38 @@ pins:
     ts_name: ___ Weak low side 2
 
   - pin: A25
-    type: 12v
-    color: red
-    function: +12V output for hall sensors (PTC fused)
-
-  - pin: A26
     type: wbo
     color: grey
     function: WBO1 Heater Positive (LSU pin 4)
 
-  - pin: A27
+  - pin: A26
     type: wbo
     color: white
     function: WBO1 Heater Negative (LSU pin 3)
 
-  - pin: A28
+  - pin: A27
     type: wbo
     color: grey
     function: WBO2 Heater Positive (LSU pin 4)
 
-  - pin: A29
+  - pin: A28
     type: wbo
     color: white
     function: WBO2 Heater Negative (LSU pin 3)
 
+  - pin: A29
+    type: usb
+    color: red
+    function: USB VBUS (USB detection)
+
   - pin: A30
     type: usb
+    color: green
     function: USB D+
 
   - pin: A31
     type: usb
+    color: white
     function: USB D-
 
   - pin: A32
