@@ -15,8 +15,8 @@ static EngineHours* setupEngineHours() {
 	engineHoursFlashCopy() = {};
 
 	auto& dut = engine->module<EngineHours>().unmock();
-	dut->resetForTest();
-	dut->onSlowCallback();
+	dut.resetForTest();
+	dut.onSlowCallback();
 	return &dut;
 }
 
