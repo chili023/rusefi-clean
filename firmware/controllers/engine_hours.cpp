@@ -177,11 +177,11 @@ void EngineHours::onSlowCallback() {
 	}
 
 #if EFI_TUNER_STUDIO
-	engine->outputChannels.hours_front_tire = getHours((size_t)engine_hours_counter_e::FrontTire);
-	engine->outputChannels.hours_back_tire = getHours((size_t)engine_hours_counter_e::RearTire);
-	engine->outputChannels.hours_cylinder = getHours((size_t)engine_hours_counter_e::Cylinder);
-	engine->outputChannels.hours_piston = getHours((size_t)engine_hours_counter_e::Piston);
-	engine->outputChannels.hours_engine = getHours((size_t)engine_hours_counter_e::Engine);
+	engine->outputChannels.hours_1 = getHours((size_t)engine_hours_counter_e::Counter1);
+	engine->outputChannels.hours_2 = getHours((size_t)engine_hours_counter_e::Counter2);
+	engine->outputChannels.hours_3 = getHours((size_t)engine_hours_counter_e::Counter3);
+	engine->outputChannels.hours_4 = getHours((size_t)engine_hours_counter_e::Counter4);
+	engine->outputChannels.hours_5 = getHours((size_t)engine_hours_counter_e::Counter5);
 #endif // EFI_TUNER_STUDIO
 }
 
@@ -229,10 +229,9 @@ void handleEngineHoursCommand(uint16_t index) {
 }
 
 static void printEngineHours() {
-	static const char *names[ENGINE_HOURS_COUNT] = { "front tire", "rear tire", "cylinder", "piston", "engine" };
 	for (size_t i = 0; i < ENGINE_HOURS_COUNT; i++) {
 		uint32_t s = engine->module<EngineHours>()->getSeconds(i);
-		efiPrintf("Engine hours %d %s: %lu s = %.2f h", (int)i, names[i], (unsigned long)s, s / 3600.0f);
+		efiPrintf("Hour counter %d: %lu s = %.2f h", (int)i + 1, (unsigned long)s, s / 3600.0f);
 	}
 }
 

@@ -15,12 +15,14 @@
 #include "engine_hours_storage.h"
 #include <rusefi/timer.h>
 
+// Five general purpose counters. Their meaning (tires, cylinder, piston, engine...) is a user choice:
+// names live in the dash bridge / phone app, TunerStudio shows them as "Hour counter 1..5".
 enum class engine_hours_counter_e : uint8_t {
-	FrontTire = 0,
-	RearTire = 1,
-	Cylinder = 2,
-	Piston = 3,
-	Engine = 4,
+	Counter1 = 0,
+	Counter2 = 1,
+	Counter3 = 2,
+	Counter4 = 3,
+	Counter5 = 4,
 };
 
 // TS command index to request immediate save of the counters to flash
