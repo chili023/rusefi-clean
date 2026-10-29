@@ -1,0 +1,170 @@
+# PyST ECU Rev 1 - connector A. Generated 2026-10-29 from ecu.kicad_pcb (Firmware/doku/stecker.md in code_pst-ECU).
+# Pins 1-8 are 1.5 mm contacts, 9-32 are 0.64 mm contacts. MCU pins per Hardware/generator/mcu_pins.py (not Hellen MM100).
+
+pins:
+  - pin: A1
+    type: gnd
+    function: "Leistungsmasse"
+
+  - pin: A2
+    id: E10
+    class: outputs
+    type: inj
+    function: "Einspritzduese 1"
+    ts_name: "___ Einspritzduese 1"
+
+  - pin: A3
+    id: E7
+    class: outputs
+    type: ls
+    function: "GPPWM1 Low-Side mit Freilauf"
+    ts_name: "___ GPPWM1"
+
+  - pin: A4
+    id: E9
+    class: outputs
+    type: ls
+    function: "GPPWM2 Low-Side mit Freilauf"
+    ts_name: "___ GPPWM2"
+
+  - pin: A5
+    id: E8
+    class: outputs
+    type: inj
+    function: "Einspritzduese 2"
+    ts_name: "___ Einspritzduese 2"
+
+  - pin: A6
+    type: can
+    function: "CAN Low"
+
+  - pin: A7
+    type: can
+    function: "CAN High (intern auch Lambda-Regler, E-Gas-Modul)"
+
+  - pin: A8
+    type: 12v
+    function: "+12 V Batterie (ueber F2)"
+
+  - pin: A9
+    id: EFI_ADC_10
+    class: analog_inputs
+    type: 12v
+    function: "Zuendung (Schluessel), Teiler 33k/6,8k"
+    ts_name: "___ Zuendung (Schluessel)"
+
+  - pin: A10
+    type: 12v
+    function: "+12 V Hallsensoren (PTC)"
+
+  - pin: A11
+    type: 5v
+    function: "+5 V Sensorversorgung"
+
+  - pin: A12
+    type: gnd
+    function: "Sensormasse"
+
+  - pin: A13
+    id: E12
+    class: event_inputs
+    type: hall
+    function: "Hall 1 Kurbelwelle"
+    ts_name: "___ Hall 1 Kurbel"
+
+  - pin: A14
+    id: EFI_ADC_9
+    class: analog_inputs
+    type: av
+    function: "TPS 1"
+    ts_name: "___ TPS 1"
+
+  - pin: A15
+    id: B15
+    class: outputs
+    type: ign
+    function: "Zuendspule 1 (Logik 5 V)"
+    ts_name: "___ Zuendspule 1"
+
+  - pin: A16
+    type: wbo
+    function: "Lambda 1 Heizung - (Sonden-Pin 3)"
+
+  - pin: A17
+    id: EFI_ADC_1
+    class: analog_inputs
+    type: at
+    function: "CLT (4,7k Bias)"
+    ts_name: "___ CLT"
+
+  - pin: A18
+    type: wbo
+    function: "Lambda 1 Ip (Sonden-Pin 1)"
+
+  - pin: A19
+    id: EFI_ADC_3
+    class: analog_inputs
+    type: av
+    function: "MAP extern"
+    ts_name: "___ MAP"
+
+  - pin: A20
+    type: 12v
+    function: "+12 V nach Sicherung (Lambda-Heizung +)"
+
+  - pin: A21
+    type: wbo
+    function: "Lambda 1 Vm (Sonden-Pin 2)"
+
+  - pin: A22
+    type: wbo
+    function: "Lambda 1 Un (Sonden-Pin 6)"
+
+  - pin: A23
+    type: wbo
+    function: "Lambda 1 Rtrim (Sonden-Pin 5)"
+
+  - pin: A24
+    type: usb
+    function: "USB VBUS"
+
+  - pin: A25
+    type: usb
+    function: "USB D+"
+
+  - pin: A26
+    type: usb
+    function: "USB D-"
+
+  - pin: A27
+    type: gnd
+    function: "Leistungsmasse"
+
+  - pin: A28
+    type: egt
+    function: "EGT1 + (Chromel), MAX31855 #1"
+
+  - pin: A29
+    type: egt
+    function: "EGT1 - (Alumel)"
+
+  - pin: A30
+    type: egt
+    function: "EGT2 + (Chromel), MAX31855 #2"
+
+  - pin: A31
+    type: egt
+    function: "EGT2 - (Alumel)"
+
+  - pin: A32
+    id: EFI_ADC_14
+    class: analog_inputs
+    type: at
+    function: "IAT (4,7k Bias)"
+    ts_name: "___ IAT"
+
+info:
+  cid: a
+  title: "PyST ECU Stecker A (Molex CMC 32 schwarz, 64334-0100)"
+  name: pyst-ecu
+  directory: hellen/pyst-ecu
